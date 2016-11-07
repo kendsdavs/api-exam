@@ -12,7 +12,8 @@ const dal = {
     getBackpack: getBackpack,
     createView: createView,
     listDaypacks: listDaypacks,
-    listMultiday: listMultiday
+    listMultiday: listMultiday,
+    findInStock: findInStock
 }
 ////////////////////////
 //////Helper Functions//
@@ -88,7 +89,24 @@ function listDaypacks(sortBy, startKey, limit, callback) {
 
 function listMultiday(sortBy, startKey, limit, callback) {
     queryDB(sortBy, startKey, limit, callback)
-}
 
+}
+function findInStock(sortBy, startKey, limit, callback) {
+    queryDB(sortBy, startKey, limit, callback)
+}
+// function findInStock(couchView, type, callback) {
+//    db.query(couchView, {
+//        include_docs: true,
+//        key: type
+//    }, function(err, res) {
+//        if (err) {
+//            return callback(err)
+//        }
+//        if (res) {
+//            callback(null, res)
+//            //callback(null, queryRows.rows.map(row => row.doc.team))
+//            //callback(null, queryRows)
+//        })
+// }
 
 module.exports = dal;

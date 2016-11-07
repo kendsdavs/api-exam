@@ -73,6 +73,60 @@ app.get('/multiday', function(req, res, next) {
   })
 })
 
+app.get('/instock', function(req, res, next) {
+  const sortByParam = req.query.sortby || 'instock';
+  const sortToken = req.query.sorttoken || '';
+  const limit = req.query.limit || 5;
+
+  dal.findInStock(sortByParam, sortToken, limit, function callback(err, data){
+    if(err) {
+      return next(new HTTPError(500, "Opps. Error"))
+    }
+    if(data) {
+      console.log("Here is a list ", req.path, data)
+      res.append('Content-type', 'application/json')
+      res.status(200).send(data)
+    }
+
+  })
+})
+
+app.get('/daypack/instock', function(req, res, next) {
+  const sortByParam = req.query.sortby || 'daypack/instock';
+  const sortToken = req.query.sorttoken || '';
+  const limit = req.query.limit || 5;
+
+  dal.findInStock(sortByParam, sortToken, limit, function callback(err, data){
+    if(err) {
+      return next(new HTTPError(500, "Opps. Error"))
+    }
+    if(data) {
+      console.log("Here is a list ", req.path, data)
+      res.append('Content-type', 'application/json')
+      res.status(200).send(data)
+    }
+
+  })
+})
+
+app.get('/multiday/instock', function(req, res, next) {
+  const sortByParam = req.query.sortby || 'multiday/instock';
+  const sortToken = req.query.sorttoken || '';
+  const limit = req.query.limit || 5;
+
+  dal.findInStock(sortByParam, sortToken, limit, function callback(err, data){
+    if(err) {
+      return next(new HTTPError(500, "Opps. Error"))
+    }
+    if(data) {
+      console.log("Here is a list ", req.path, data)
+      res.append('Content-type', 'application/json')
+      res.status(200).send(data)
+    }
+
+  })
+})
+
 app.use(function(err, req, res, next) {
     console.log(req.method, " ", req.path, " err: ", err)
     res.status(err.status || 500)
