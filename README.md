@@ -10,3 +10,11 @@
 * **GET** http://localhost:3000/instock 
 * **GET** http://localhost:3000/multiday/instock
 * **GET** http://localhost:3000/daypack/instock 
+
+## Install the Database
+
+* Run the importbackpacksdata.js file to install the data base
+
+## Install the Views
+
+* Run addViews.js to install the views 
