@@ -13,7 +13,9 @@ const dal = {
     createView: createView,
     listDaypacks: listDaypacks,
     listMultiday: listMultiday,
-    findInStock: findInStock
+    findInStock: findInStock,
+    getAllBackpack: getAllBackpack
+    //queryBackpackByType:queryBackpackByType
 }
 ////////////////////////
 //////Helper Functions//
@@ -25,15 +27,28 @@ function queryDB(sortBy, startKey, limit, callback) {
         limit = 5
 
     db.query(sortBy, {
-        include_docs: true,
         startkey: startKey,
-        limit: limit
-    }, function(err, results) {
-        if (err)
-            return callback(err)
-        if (results)
-            return callback(null, results)
-    })
+        limit: limit,
+        include_docs: true
+    }).then(function(result) {
+        if (startKey !== '' && result.rows.length > 0) {
+            result.rows.shift();
+        }
+        return callback(null, result.rows);
+    }).catch(function(err) {
+        return callback(err);
+    });
+
+    // db.query(sortBy, {
+    //     include_docs: true,
+    //     startkey: startKey,
+    //     limit: limit
+    // }, function(err, results) {
+    //     if (err)
+    //         return callback(err)
+    //     if (results)
+    //         return callback(null, results.rows)
+    // })
 }
 
 ////////////////////////
@@ -56,6 +71,17 @@ function createBackpack(data, callback) {
         return callback(null, response)
     })
 }
+function getAllBackpack(data, callback) {
+    if (data.hasOwnProperty('type') !== true)
+        db.allDocs({include_docs: true, startkey: 'daypack'}).then(function(response) {
+            if (response.rows.length > 0) {
+                response.rows.shift();
+            }
+            return callback(null, response.rows);
+        }).catch(function(err) {
+            return callback(err);
+        });
+    }
 
 function getBackpack(data, callback) {
     db.get(data, function(err, response) {
@@ -94,6 +120,15 @@ function listMultiday(sortBy, startKey, limit, callback) {
 function findInStock(sortBy, startKey, limit, callback) {
     queryDB(sortBy, startKey, limit, callback)
 }
+
+// function queryBackpackByType(type, callback) {
+//         db.query(type, {
+//             include_docs: true
+//         }, function (err, data) {
+//             if (err) return callback(err)
+//             callback(null, data)
+//         })
+//     }
 // function findInStock(couchView, type, callback) {
 //    db.query(couchView, {
 //        include_docs: true,

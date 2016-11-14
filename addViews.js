@@ -61,17 +61,17 @@ dalNoSQL.createView(ddoc3, function(err, data) {
     }
 })
 
-// dalNoSQL.createView(ddoc2, function(err, data) {
-//     if (err)
-//         return console.log(err)
-//     if (data) {
-//         console.log(data)
-//     }
-// })
-// dalNoSQL.createView(ddoc, function(err, data) {
-//     if (err)
-//         return console.log(err)
-//     if (data) {
-//         console.log(data)
-//     }
-// })
+dalNoSQL.createView(ddoc2, function(err, data) {
+    if (err)
+        return console.log(err)
+    if (data) {
+        console.log(data)
+    }
+})
+dalNoSQL.createView(ddoc, function(err, data) {
+    if (err)
+        return console.log(err)
+    if (data) {
+        console.log(data)
+    }
+})

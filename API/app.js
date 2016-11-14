@@ -22,6 +22,20 @@ app.post('/backpacks', function(req, res, next) {
 
   })
 })
+app.get('/backpacks', function(req, res, next) {
+  //console.log(req.params.id)
+  dal.getAllBackpack(req, function (err, data){
+    if(err) {
+      return next(new HTTPError(500, "Opps. Error"))
+    }
+    if(data) {
+      console.log("Here is ", data)
+      res.append('Content-type', 'application/json')
+      res.send(data)
+    }
+
+  })
+})
 app.get('/backpacks/:id', function(req, res, next) {
   console.log(req.params.id)
   dal.getBackpack(req.params.id, function (err, data){
@@ -36,6 +50,40 @@ app.get('/backpacks/:id', function(req, res, next) {
 
   })
 })
+//getting type of backpack option 3
+// app.get('/backpacks/:type', function(req, res, next) {
+//   console.log(req.params.type)
+//   dal.getBackpack(req.params.type, function (err, data){
+//     if(err) {
+//       return next(new HTTPError(500, "Opps. Error"))
+//     }
+//     if(data) {
+//       console.log("Here is ", data)
+//       res.append('Content-type', 'application/json')
+//       res.send(data)
+//     }
+//
+//   })
+// })
+
+// getting type of backpack option 2
+// app.get('/backpacks', function(req, res, next) {
+//   const sortByParam = req.query.sortby || 'daypack';
+//   const sortToken = req.query.type || '';
+//   const limit = req.query.limit || 5;
+//
+//   dal.listDaypacks(sortByParam, sortToken, limit, function callback(err, data){
+//     if(err) {
+//       return next(new HTTPError(500, "Opps. Error"))
+//     }
+//     if(data) {
+//       console.log("Here is a list ", req.path, data)
+//       res.append('Content-type', 'application/json')
+//       res.status(200).send(data)
+//     }
+//
+//   })
+// })
 
 app.get('/daypack', function(req, res, next) {
   const sortByParam = req.query.sortby || 'daypack';
