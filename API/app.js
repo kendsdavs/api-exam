@@ -68,11 +68,11 @@ app.get('/backpacks/:id', function(req, res, next) {
 
 // getting type of backpack option 2
 // app.get('/backpacks', function(req, res, next) {
-//   const sortByParam = req.query.sortby || 'daypack';
+//   const sortByParam = req.query.sortby || '';
 //   const sortToken = req.query.type || '';
 //   const limit = req.query.limit || 5;
 //
-//   dal.listDaypacks(sortByParam, sortToken, limit, function callback(err, data){
+//   dal.getAllBackpack(sortByParam, sortToken, limit, function callback(err, data){
 //     if(err) {
 //       return next(new HTTPError(500, "Opps. Error"))
 //     }
